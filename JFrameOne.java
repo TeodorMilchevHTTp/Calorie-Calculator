@@ -5,6 +5,8 @@ import java.awt.event.*;
 import javax.swing.*;
 
 public class JFrameOne extends JFrame implements ItemListener, ActionListener{
+
+    //Define some variables
     private JFrame frame;
     private JLabel greetMessage;
     private JButton startButton;
@@ -18,64 +20,80 @@ public class JFrameOne extends JFrame implements ItemListener, ActionListener{
 
     public void initialise(){
         greetMessage = new JLabel();
-        this.greetMessage.setText("Greetings Customer");
-        this.greetMessage.setFont(new Font("MV Boli", Font.PLAIN, 25));
-        this.greetMessage.setBounds(125, 0, 240, 30);
+        greetMessage.setText("Greetings Customer");
+        greetMessage.setFont(new Font("MV Boli", Font.PLAIN, 25));
+        greetMessage.setBounds(125, 0, 240, 30);
 
+        //Create a message to user
         goal = new JLabel();
-        this.goal.setText("What is your current goal?");
-        this.goal.setFont(new Font("MV Boli", Font.PLAIN, 20));
-        this.goal.setBounds(0, 60, 300, 30);
-
+        goal.setText("What is your current goal?");
+        goal.setFont(new Font("MV Boli", Font.PLAIN, 20));
+        goal.setBounds(0, 60, 300, 30);
+        
+        //Present user with option 1
         looseWeight = new JCheckBox();
-        this.looseWeight.setText("Loose Weight");
-        this.looseWeight.setBounds(0, 140, 150, 30);
-        this.looseWeight.setOpaque(false);
-        this.looseWeight.addItemListener(listener);
+        looseWeight.setText("Loose Weight");
+        looseWeight.setBounds(0, 140, 150, 30);
+        looseWeight.setFocusable(false);
+        looseWeight.setOpaque(false);
+        looseWeight.addItemListener(this);
 
+        //Present user with option 2
         gainMuscle = new JCheckBox();
-        this.gainMuscle.setText("Gain Muscle");
-        this.gainMuscle.setBounds(0,200, 150, 30);
-        this.gainMuscle.setOpaque(false);
-        this.gainMuscle.addItemListener(listener);
+        gainMuscle.setText("Gain Muscle");
+        gainMuscle.setBounds(0,200, 150, 30);
+        gainMuscle.setFocusable(false);
+        gainMuscle.setOpaque(false);
+        gainMuscle.addItemListener(this);
 
-
+        //Start the actual app
         startButton = new JButton();
-        this.startButton.setText("Start");
-        this.startButton.setBounds(155, 250, 170, 50);
+        startButton.setText("Start");
+        startButton.setBounds(155, 250, 170, 50);
+        startButton.setFocusable(false);
+        startButton.addActionListener(this);
 
+        //Create the start Frame
         frame = new JFrame();
-        this.frame.setTitle("Calorie Calculator");
-        this.frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        this.frame.setSize(500, 400);
-        this.frame.setLocationRelativeTo(null);
-        this.frame.setResizable(false);
-        this.frame.setVisible(true);
-        this.frame.getContentPane().setBackground(new Color(123, 50, 250));
+        frame.setTitle("Calorie Calculator");
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setSize(500, 400);
+        frame.setLocationRelativeTo(null);
+        frame.setResizable(false);
+        frame.setVisible(true);
+        frame.getContentPane().setBackground(new Color(123, 50, 250));
         
-        this.frame.add(greetMessage);
-        this.frame.add(goal);
-        this.frame.add(startButton);
-        this.frame.add(looseWeight);
-        this.frame.add(gainMuscle);
+        //Add components to Frame
+        frame.add(greetMessage);
+        frame.add(goal);
+        frame.add(startButton);
+        frame.add(looseWeight);
+        frame.add(gainMuscle);
         
-        this.frame.setLayout(null);
+        //Allow control of where items are positioned
+        frame.setLayout(null);
 
     }
 
+    //Open main app frame
     @Override
     public void actionPerformed(ActionEvent e) {
 
-    }
+            if(e.getSource()==startButton){
+                if(looseWeight.isSelected()){
+                frame.dispose();
+                BMI appFrame = new BMI();   
+                }else if(gainMuscle.isSelected()){
+                frame.dispose();
+                GainMuscle appFrame = new GainMuscle();
+                }else{
+                    StartButtonError error = new StartButtonError();
+                    frame.dispose();
+                }
+            }
+        }
 
-    @Override
-    public void itemStateChanged(ItemEvent e) {
-        // TODO Auto-generated method stub
-        
-    }
-
-    ItemListener listener = new ItemListener(){
-
+        //Let user choose between two options
         @Override
         public void itemStateChanged(ItemEvent e) {
             // TODO Auto-generated method stub
@@ -91,7 +109,4 @@ public class JFrameOne extends JFrame implements ItemListener, ActionListener{
             }
             
         }
-
-    };
-
 }
