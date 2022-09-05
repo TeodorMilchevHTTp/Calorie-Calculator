@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.*;
 
@@ -13,6 +14,8 @@ public class JFrameOne extends JFrame implements ItemListener, ActionListener{
     private JLabel goal;
     private JCheckBox looseWeight;
     private JCheckBox gainMuscle;
+    private ImageIcon logo;
+    private JLabel displayLogo;
 
     public JFrameOne(){
         initialise();
@@ -28,12 +31,12 @@ public class JFrameOne extends JFrame implements ItemListener, ActionListener{
         goal = new JLabel();
         goal.setText("What is your current goal?");
         goal.setFont(new Font("MV Boli", Font.PLAIN, 20));
-        goal.setBounds(0, 60, 300, 30);
+        goal.setBounds(5, 60, 300, 30);
         
         //Present user with option 1
         looseWeight = new JCheckBox();
         looseWeight.setText("Loose Weight");
-        looseWeight.setBounds(0, 140, 150, 30);
+        looseWeight.setBounds(5, 140, 150, 30);
         looseWeight.setFocusable(false);
         looseWeight.setOpaque(false);
         looseWeight.addItemListener(this);
@@ -41,7 +44,7 @@ public class JFrameOne extends JFrame implements ItemListener, ActionListener{
         //Present user with option 2
         gainMuscle = new JCheckBox();
         gainMuscle.setText("Gain Muscle");
-        gainMuscle.setBounds(0,200, 150, 30);
+        gainMuscle.setBounds(5,200, 150, 30);
         gainMuscle.setFocusable(false);
         gainMuscle.setOpaque(false);
         gainMuscle.addItemListener(this);
@@ -49,9 +52,15 @@ public class JFrameOne extends JFrame implements ItemListener, ActionListener{
         //Start the actual app
         startButton = new JButton();
         startButton.setText("Start");
-        startButton.setBounds(155, 250, 170, 50);
+        startButton.setBounds(10, 280, 170, 50);
         startButton.setFocusable(false);
         startButton.addActionListener(this);
+
+        //Add a logo image
+        logo = new ImageIcon(getClass().getResource("/images/logo.png"));
+        displayLogo = new JLabel(logo);
+        displayLogo.setFocusable(false);
+        displayLogo.setBounds(180, 10, 512, 380);
 
         //Create the start Frame
         frame = new JFrame();
@@ -62,14 +71,15 @@ public class JFrameOne extends JFrame implements ItemListener, ActionListener{
         frame.setResizable(false);
         frame.setVisible(true);
         frame.getContentPane().setBackground(new Color(123, 50, 250));
-        
+
         //Add components to Frame
         frame.add(greetMessage);
         frame.add(goal);
         frame.add(startButton);
         frame.add(looseWeight);
         frame.add(gainMuscle);
-        
+        frame.add(displayLogo);
+
         //Allow control of where items are positioned
         frame.setLayout(null);
 

@@ -41,7 +41,7 @@ public class BMI implements ActionListener, KeyListener{
         continueButton.setBounds(25, 190, 130, 35);
         continueButton.setFocusable(false);
         continueButton.addActionListener(this);
-
+        
         //weight label
         weight = new JLabel();
         weight.setText("What is your current weight");
@@ -86,6 +86,7 @@ public class BMI implements ActionListener, KeyListener{
         calculate = new JButton();
         calculate.setText("Calculate");
         calculate.setBounds(195, 175, 100, 20);
+        calculate.setFocusable(false);
         ActionListener listener1 = new OtherButtonListener();
         calculate.addActionListener(listener1);
 
@@ -94,7 +95,7 @@ public class BMI implements ActionListener, KeyListener{
         output.setFont(new Font("Verdana", Font.PLAIN, 16));
         output.setForeground(Color.BLACK);
         output.setEditable(false);
-        output.setBounds(220, 205, 100, 20);
+        output.setBounds(195, 205, 100, 20);
 
         //add elements to frame
         appFrame.add(continueButton);
@@ -107,7 +108,6 @@ public class BMI implements ActionListener, KeyListener{
         appFrame.add(bmi);
         appFrame.add(calculate);
         appFrame.add(output);
-        
     }
 
     //open app frame on button click
@@ -125,6 +125,7 @@ public class BMI implements ActionListener, KeyListener{
         }
     }
         
+    //Calculate BMI on Button Click
     class OtherButtonListener implements ActionListener
             {
                 public void actionPerformed(ActionEvent e)
@@ -134,11 +135,15 @@ public class BMI implements ActionListener, KeyListener{
                     DecimalFormat df = new DecimalFormat("00.00");
                     double f = (x/(y*y));
                 
-               
-
                     if(e.getSource()==calculate){
-                        output.setText(String.valueOf(f));
-                        System.out.println(df.format(f));
+                        //Needs fix
+                        if(weightVal.getText().isEmpty() || heightVal.getText().isEmpty()){
+                            BMIerror error= new BMIerror();
+                            appFrame.dispose();
+                        }else{
+                            output.setText(String.valueOf(f));
+                            System.out.println(df.format(f));
+                            }
                         }
                     }
                 }

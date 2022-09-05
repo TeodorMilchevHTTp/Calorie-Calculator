@@ -25,24 +25,28 @@ public class BMIerror implements ActionListener{
         appFrame.getContentPane().setBackground(new Color(123, 50, 250));
         appFrame.setLayout(null);
 
+        //Button
         retryButton = new JButton();
         retryButton.setText("OK");
         retryButton.setBounds(75, 60, 80, 35);
         retryButton.setFocusable(false);
         retryButton.addActionListener(this);
 
+        //Label
         errorMessage = new JLabel();
         errorMessage.setText("Insifficiend Info...");
         errorMessage.setFont(new Font("MV Boli", Font.PLAIN, 20));
         errorMessage.setBounds(35, 15, 200, 20);
         errorMessage.setFocusable(false);
 
+        //Add to frame
         appFrame.add(retryButton);
         appFrame.add(errorMessage);
 
         
     }
 
+    //exit window
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()==retryButton){

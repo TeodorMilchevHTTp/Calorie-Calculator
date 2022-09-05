@@ -25,22 +25,23 @@ public class StartButtonError implements ActionListener{
         appFrame.getContentPane().setBackground(new Color(123, 50, 250));
         appFrame.setLayout(null);
 
+        //Button -> to either continue or close window
         retryButton = new JButton();
         retryButton.setText("OK");
         retryButton.setBounds(75, 60, 80, 35);
         retryButton.setFocusable(false);
         retryButton.addActionListener(this);
 
+        //Label -> Message
         errorMessage = new JLabel();
         errorMessage.setText("Choose an option");
         errorMessage.setFont(new Font("MV Boli", Font.PLAIN, 20));
         errorMessage.setBounds(35, 15, 200, 20);
         errorMessage.setFocusable(false);
 
+        //Add items to Frame
         appFrame.add(retryButton);
         appFrame.add(errorMessage);
-
-        
     }
 
     @Override
