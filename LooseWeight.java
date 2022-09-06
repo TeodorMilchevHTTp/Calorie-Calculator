@@ -6,7 +6,7 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
 
-public class LooseWeight{
+public class LooseWeight extends Item{
 
     //Declare some variables
     private JFrame appFrame;
@@ -18,17 +18,23 @@ public class LooseWeight{
     private JLabel carbs;
     private JLabel fat;
     private JLabel protein;
+    private JLabel ItemInfo;
     private JList breakfastList;
     private JList lunchList;
     private JList dinnerList;
     private JList menuList;
+    private JList ItemInfoList;
     private JScrollPane breakfastpane;
     private JScrollPane lunchPane;
     private JScrollPane dinnerPane;
     private JScrollPane menuPane;
+    private JScrollPane ItemInfoPane;
 
     //Main Frame
     LooseWeight(){
+        
+        super(name, carbsAmount, fatAmount, proteinAmount);
+
         appFrame = new JFrame();
         appFrame.setTitle("Loose Weight");
         appFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -45,13 +51,18 @@ public class LooseWeight{
         String[] listB = {"Item 1", "Item 2", "Item 3", "Item 4", "Item 5"};
         String[] listL = {"Item 1", "Item 2", "Item 3", "Item 4", "Item 5"};
         String[] listD = {"Item 1", "Item 2", "Item 3", "Item 4", "Item 5"};
-        String[] listM = {"Item 1", "Item 2", "Item 3", "Item 4", "Item 5"};
+        String[] listM = {};
+        String[] listI = {"Item 1", "Item 2", "Item 3", "Item 4", "Item 5"};
 
         //Lists to hold in the arrays
         breakfastList = new JList<>(listB);
         lunchList = new JList<>(listL);
         dinnerList = new JList<>(listD);
         menuList = new JList<>(listM);
+        ItemInfoList = new JList<>(listI);
+
+        //Fill array test
+
 
         //ScrollPanes to hold the Lists
         breakfastpane = new JScrollPane(breakfastList);
@@ -64,7 +75,11 @@ public class LooseWeight{
         dinnerPane.setBounds(15, 270, 130, 70);
 
         menuPane = new JScrollPane(menuList);
-        menuPane.setBounds(300, 70, 165, 270);
+        menuPane.setBounds(300, 70, 165, 130);
+
+        ItemInfoPane = new JScrollPane(ItemInfoList);
+        ItemInfoPane.setBounds(300, 260, 165, 80);
+
 
         //Labels
         breakfast = new JLabel();
@@ -107,6 +122,11 @@ public class LooseWeight{
         protein.setBounds(170, 120, 70, 40);
         menu.setFont(new Font("MV Boli", Font.PLAIN, 50));
 
+        ItemInfo = new JLabel();
+        ItemInfo.setText("Info");
+        ItemInfo.setBounds(340, 210, 150, 40);
+        ItemInfo.setFont(new Font("MV Boli", Font.PLAIN, 40));
+
         //Add items to Main Frame
         appFrame.add(breakfastpane);
         appFrame.add(lunchPane);
@@ -120,5 +140,7 @@ public class LooseWeight{
         appFrame.add(carbs);
         appFrame.add(fat);
         appFrame.add(protein);
+        appFrame.add(ItemInfo);
+        appFrame.add(ItemInfoPane);
     }
 }
