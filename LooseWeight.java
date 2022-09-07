@@ -1,6 +1,9 @@
 import java.awt.Color;
 import java.awt.Font;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -23,15 +26,18 @@ public class LooseWeight extends Item{
     private JList lunchList;
     private JList dinnerList;
     private JList menuList;
-    private JList ItemInfoList;
+    private JList itemInfoList;
     private JScrollPane breakfastpane;
     private JScrollPane lunchPane;
     private JScrollPane dinnerPane;
     private JScrollPane menuPane;
     private JScrollPane ItemInfoPane;
+    private ArrayList<Item> itemListDisplay;
+    private ArrayList<Item> itemInfoListDisplay;
+    private DefaultListModel model;
 
     //Main Frame
-    LooseWeight(){
+    LooseWeight(String name, double carbsAmount, double fatAmount, double proteinAmount){
         
         super(name, carbsAmount, fatAmount, proteinAmount);
 
@@ -45,24 +51,28 @@ public class LooseWeight extends Item{
         appFrame.getContentPane().setBackground(new Color(123, 50, 250));
         appFrame.setLayout(null);
 
+        model = new DefaultListModel<>();
+
         //Create arrays
-        //Will be empty in future
-        //Will hold items from the menu...When added
-        String[] listB = {"Item 1", "Item 2", "Item 3", "Item 4", "Item 5"};
-        String[] listL = {"Item 1", "Item 2", "Item 3", "Item 4", "Item 5"};
-        String[] listD = {"Item 1", "Item 2", "Item 3", "Item 4", "Item 5"};
-        String[] listM = {};
-        String[] listI = {"Item 1", "Item 2", "Item 3", "Item 4", "Item 5"};
+        itemListDisplay = new ArrayList<Item>();
+        itemListDisplay.add(new Item("Chicken Steak", 10, 5, 20));
+        itemListDisplay.add(new Item("Egg", 0, 1, 6));
 
         //Lists to hold in the arrays
-        breakfastList = new JList<>(listB);
-        lunchList = new JList<>(listL);
-        dinnerList = new JList<>(listD);
-        menuList = new JList<>(listM);
-        ItemInfoList = new JList<>(listI);
-
-        //Fill array test
-
+        breakfastList = new JList<>();
+        lunchList = new JList<>();
+        dinnerList = new JList<>();
+        menuList = new JList<>(itemListDisplay.toArray());
+        itemInfoList = new JList<>(model);
+        
+        menuList.getSelectionModel().addListSelectionListener(e -> {
+            model.clear();
+           Item i =  (Item) menuList.getSelectedValue();
+           itemInfoListDisplay = new ArrayList<>();
+           itemInfoListDisplay.add(i);
+           model.addElement(itemInfoListDisplay.toString());
+           System.out.println(itemListDisplay.toString());
+        });
 
         //ScrollPanes to hold the Lists
         breakfastpane = new JScrollPane(breakfastList);
@@ -77,7 +87,7 @@ public class LooseWeight extends Item{
         menuPane = new JScrollPane(menuList);
         menuPane.setBounds(300, 70, 165, 130);
 
-        ItemInfoPane = new JScrollPane(ItemInfoList);
+        ItemInfoPane = new JScrollPane(itemInfoList);
         ItemInfoPane.setBounds(300, 260, 165, 80);
 
 

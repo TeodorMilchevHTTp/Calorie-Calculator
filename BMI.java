@@ -119,7 +119,7 @@ public class BMI implements ActionListener, KeyListener{
                 appFrame.dispose();
                 BMIerror error = new BMIerror();
             }else{
-            LooseWeight frame = new LooseWeight();
+            LooseWeight frame = new LooseWeight(null, 0, 0, 0);
             appFrame.dispose();
             }
         }
@@ -132,8 +132,7 @@ public class BMI implements ActionListener, KeyListener{
                 {
                     double x = Integer.parseInt(weightVal.getText());
                     double y = Integer.parseInt(heightVal.getText());
-                    DecimalFormat df = new DecimalFormat("00.00");
-                    double f = (x/(y*y));
+                    double f = (x/(y*y))*10000;
                 
                     if(e.getSource()==calculate){
                         //Needs fix
@@ -141,8 +140,8 @@ public class BMI implements ActionListener, KeyListener{
                             BMIerror error= new BMIerror();
                             appFrame.dispose();
                         }else{
-                            output.setText(String.valueOf(f));
-                            System.out.println(df.format(f));
+                            output.setText(String.format("%.2f", f));
+                            //System.out.println();
                             }
                         }
                     }
