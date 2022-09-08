@@ -68,9 +68,9 @@ public class LooseWeight extends Item{
         menuList.getSelectionModel().addListSelectionListener(e -> {
             model.clear();
            Item i =  (Item) menuList.getSelectedValue();
-           itemInfoListDisplay = new ArrayList<>();
-           itemInfoListDisplay.add(i);
-           model.addElement(itemInfoListDisplay.toString());
+           //itemInfoListDisplay = new ArrayList<>();
+           //itemInfoListDisplay.add(i);
+           model.addElement(i.getInfo());
            System.out.println(itemListDisplay.toString());
         });
 

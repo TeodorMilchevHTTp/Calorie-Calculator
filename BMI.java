@@ -22,6 +22,7 @@ public class BMI implements ActionListener, KeyListener{
     private JLabel bmi;
     private JButton calculate;
     private JTextField output;
+    private JButton check;
 
     //Main Frame
     BMI(){
@@ -74,7 +75,7 @@ public class BMI implements ActionListener, KeyListener{
 
         //indication for metrix
         m = new JLabel();
-        m.setText("Meter");
+        m.setText("Centimeters");
         m.setBounds(215, 115, 70, 70);
         m.setFocusable(false);
 
@@ -89,6 +90,13 @@ public class BMI implements ActionListener, KeyListener{
         calculate.setFocusable(false);
         ActionListener listener1 = new OtherButtonListener();
         calculate.addActionListener(listener1);
+
+        //Check BMI button
+        check = new JButton("..");
+        check.setBounds(298, 215, 10,10);
+        check.setFocusable(false);
+        //ActionListener listener2 = new OtherButtonListener1();
+        //check.addActionListener(listener2);
 
         //output
         output = new JTextField();
@@ -108,6 +116,7 @@ public class BMI implements ActionListener, KeyListener{
         appFrame.add(bmi);
         appFrame.add(calculate);
         appFrame.add(output);
+        appFrame.add(check);
     }
 
     //open app frame on button click
@@ -146,6 +155,23 @@ public class BMI implements ActionListener, KeyListener{
                         }
                     }
                 }
+
+    // class OtherButtonListener1 implements ActionListener{
+
+    //     @Override
+    //     public void actionPerformed(ActionEvent e) {
+    //         double x = Integer.parseInt(output.getText());
+    //         if(e.getSource() == check){
+    //             System.out.println(x);
+    //             // if(x < 18.5){
+    //             //     appFrame.dispose();
+    //             //     WeightTest weight = new WeightTest();
+    //             // }
+    //         }
+            
+    //     }
+        
+    // }
             
     //deny imput that isn't numeric
     @Override

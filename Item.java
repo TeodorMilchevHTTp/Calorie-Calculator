@@ -51,19 +51,18 @@ public class Item{
         this.proteinAmount = proteinAmount;
     }
 
-
+    
     //toString method to create a formal output
-    // @Override
-    // public String toString(){
-    //     return name + ":" + "Carbs:" +
-    //         carbsAmount + "g, " + "Fats:" +
-    //         fatAmount + "g, " + "Protein:" +
-    //         proteinAmount + "g";
-    // }
-
     @Override
     public String toString(){
         return name;
+    }
+
+    public String getInfo(){
+        return "Carbs:" +
+            carbsAmount + "g," + "Fats:" +
+            fatAmount + "g, " + "Protein:" +
+            proteinAmount + "g";
     }
 
     public int size() {
