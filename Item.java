@@ -8,13 +8,15 @@ public class Item{
     protected  double carbsAmount;
     protected double fatAmount;
     protected double proteinAmount;
+    protected int calories;
 
     //Constructor
-    public Item(String name, double carbsAmount, double fatAmount, double proteinAmount){
+    public Item(String name, double carbsAmount, double fatAmount, double proteinAmount, int calories){
         this.name = name;
         this.carbsAmount = carbsAmount;
         this.fatAmount = fatAmount;
         this.proteinAmount = proteinAmount;
+        this.calories = calories;
     }
 
     //Getters
@@ -34,6 +36,10 @@ public class Item{
         return proteinAmount;
     }
 
+    public int getCalories(){
+        return calories;
+    }
+
     //Setters
     public void setCarbsString(String name){
         this.name = name;
@@ -51,6 +57,10 @@ public class Item{
         this.proteinAmount = proteinAmount;
     }
 
+    public void setCalories(int calories){
+       this.calories = calories; 
+    }
+
     
     //toString method to create a formal output
     @Override
@@ -59,13 +69,10 @@ public class Item{
     }
 
     public String getInfo(){
-        return "Carbs:" +
-            carbsAmount + "g," + "Fats:" +
-            fatAmount + "g, " + "Protein:" +
-            proteinAmount + "g";
-    }
-
-    public int size() {
-        return 0;
+        return "Carbs: " +
+            carbsAmount + "g" + "\nFats: " +
+            fatAmount + "g " + "\nProtein: " +
+            proteinAmount + "g" + "\nCalories: " +
+            calories;
     }
 }

@@ -8,6 +8,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 public class LooseWeight extends Item{
 
@@ -17,7 +19,7 @@ public class LooseWeight extends Item{
     private JLabel lunch;
     private JLabel dinner;
     private JLabel menu;
-    private JLabel calories;
+    private JLabel caloriesInfo;
     private JLabel carbs;
     private JLabel fat;
     private JLabel protein;
@@ -26,7 +28,7 @@ public class LooseWeight extends Item{
     private JList lunchList;
     private JList dinnerList;
     private JList menuList;
-    private JList itemInfoList;
+    private JTextArea itemInfoList;
     private JScrollPane breakfastpane;
     private JScrollPane lunchPane;
     private JScrollPane dinnerPane;
@@ -34,12 +36,11 @@ public class LooseWeight extends Item{
     private JScrollPane ItemInfoPane;
     private ArrayList<Item> itemListDisplay;
     private ArrayList<Item> itemInfoListDisplay;
-    private DefaultListModel model;
 
     //Main Frame
-    LooseWeight(String name, double carbsAmount, double fatAmount, double proteinAmount){
+    LooseWeight(String name, double carbsAmount, double fatAmount, double proteinAmount, int calories){
         
-        super(name, carbsAmount, fatAmount, proteinAmount);
+        super(name, carbsAmount, fatAmount, proteinAmount, calories);
 
         appFrame = new JFrame();
         appFrame.setTitle("Loose Weight");
@@ -51,27 +52,22 @@ public class LooseWeight extends Item{
         appFrame.getContentPane().setBackground(new Color(123, 50, 250));
         appFrame.setLayout(null);
 
-        model = new DefaultListModel<>();
-
         //Create arrays
         itemListDisplay = new ArrayList<Item>();
-        itemListDisplay.add(new Item("Chicken Steak", 10, 5, 20));
-        itemListDisplay.add(new Item("Egg", 0, 1, 6));
+        itemListDisplay.add(new Item("Chicken Steak", 10, 5, 20, 200));
+        itemListDisplay.add(new Item("Egg", 0, 1, 6, 75));
 
         //Lists to hold in the arrays
         breakfastList = new JList<>();
         lunchList = new JList<>();
         dinnerList = new JList<>();
         menuList = new JList<>(itemListDisplay.toArray());
-        itemInfoList = new JList<>(model);
+        itemInfoList = new JTextArea();
+        itemInfoList.setEditable(false);
         
         menuList.getSelectionModel().addListSelectionListener(e -> {
-            model.clear();
            Item i =  (Item) menuList.getSelectedValue();
-           //itemInfoListDisplay = new ArrayList<>();
-           //itemInfoListDisplay.add(i);
-           model.addElement(i.getInfo());
-           System.out.println(itemListDisplay.toString());
+           itemInfoList.setText(i.getInfo());
         });
 
         //ScrollPanes to hold the Lists
@@ -112,9 +108,9 @@ public class LooseWeight extends Item{
         menu.setBounds(310,20, 150, 40);
         menu.setFont(new Font("MV Boli", Font.PLAIN, 50));
 
-        calories = new JLabel();
-        calories.setText("Calories: ");
-        calories.setBounds(170, 60, 70, 40);
+        caloriesInfo = new JLabel();
+        caloriesInfo.setText("Calories: ");
+        caloriesInfo.setBounds(170, 60, 70, 40);
         menu.setFont(new Font("MV Boli", Font.PLAIN, 50));
 
         carbs = new JLabel();
@@ -146,7 +142,7 @@ public class LooseWeight extends Item{
         appFrame.add(dinner);
         appFrame.add(menuPane);
         appFrame.add(menu);
-        appFrame.add(calories);
+        appFrame.add(caloriesInfo);
         appFrame.add(carbs);
         appFrame.add(fat);
         appFrame.add(protein);

@@ -128,7 +128,7 @@ public class BMI implements ActionListener, KeyListener{
                 appFrame.dispose();
                 BMIerror error = new BMIerror();
             }else{
-            LooseWeight frame = new LooseWeight(null, 0, 0, 0);
+            LooseWeight frame = new LooseWeight(null, 0, 0, 0, 0);
             appFrame.dispose();
             }
         }
