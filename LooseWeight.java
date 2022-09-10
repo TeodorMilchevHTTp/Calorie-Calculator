@@ -1,17 +1,22 @@
 import java.awt.Color;
 import java.awt.Font;
-import java.lang.reflect.Array;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.ArrayList;
 
 import javax.swing.DefaultListModel;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
 
-public class LooseWeight extends Item{
+
+public class LooseWeight extends Item implements ItemListener, ActionListener{
 
     //Declare some variables
     private JFrame appFrame;
@@ -35,7 +40,16 @@ public class LooseWeight extends Item{
     private JScrollPane menuPane;
     private JScrollPane ItemInfoPane;
     private ArrayList<Item> itemListDisplay;
-    private ArrayList<Item> itemInfoListDisplay;
+    private ArrayList<Item> breakfastItemsToHold;
+    private ArrayList<Item> lunchItemsToHold;
+    private ArrayList<Item> dinnerItemsToHold;
+    private JCheckBox breakfastCheck;
+    private JCheckBox lunchCheck;
+    private JCheckBox dinnerCheck;
+    private JButton addItem;
+    private DefaultListModel DefaultBreakfastList;
+    private DefaultListModel DefaultLunchList;
+    private DefaultListModel DefaultDinnerList;
 
     //Main Frame
     LooseWeight(String name, double carbsAmount, double fatAmount, double proteinAmount, int calories){
@@ -56,6 +70,16 @@ public class LooseWeight extends Item{
         itemListDisplay = new ArrayList<Item>();
         itemListDisplay.add(new Item("Chicken Steak", 10, 5, 20, 200));
         itemListDisplay.add(new Item("Egg", 0, 1, 6, 75));
+
+        //Empty arrays to old information
+        breakfastItemsToHold = new ArrayList<Item>();
+        lunchItemsToHold = new ArrayList<Item>();
+        dinnerItemsToHold = new ArrayList<Item>();
+
+        //Default List Models to hold the Lists
+        DefaultBreakfastList = new DefaultListModel<Item>();
+        DefaultLunchList = new DefaultListModel<Item>();
+        DefaultDinnerList = new DefaultListModel<Item>();
 
         //Lists to hold in the arrays
         breakfastList = new JList<>();
@@ -133,6 +157,33 @@ public class LooseWeight extends Item{
         ItemInfo.setBounds(340, 210, 150, 40);
         ItemInfo.setFont(new Font("MV Boli", Font.PLAIN, 40));
 
+        //CheckBoxes
+        breakfastCheck = new JCheckBox();
+        breakfastCheck.setBounds(128, 12, 150, 30);
+        breakfastCheck.setFocusable(false);
+        breakfastCheck.setOpaque(false);
+        breakfastCheck.addItemListener(this);
+
+        lunchCheck = new JCheckBox();
+        lunchCheck.setBounds(128, 126, 150, 30);
+        lunchCheck.setFocusable(false);
+        lunchCheck.setOpaque(false);
+        lunchCheck.addItemListener(this);
+
+        dinnerCheck = new JCheckBox();
+        dinnerCheck.setBounds(128, 241, 150, 30);
+        dinnerCheck.setFocusable(false);
+        dinnerCheck.setOpaque(false);
+        dinnerCheck.addItemListener(this);
+
+        //Button
+        addItem = new JButton();
+        addItem.setText("Add");
+        addItem.setFocusable(false);
+        addItem.setBounds(250, 80, 30, 30);
+        addItem.addActionListener(this);
+        
+
         //Add items to Main Frame
         appFrame.add(breakfastpane);
         appFrame.add(lunchPane);
@@ -148,5 +199,66 @@ public class LooseWeight extends Item{
         appFrame.add(protein);
         appFrame.add(ItemInfo);
         appFrame.add(ItemInfoPane);
+        appFrame.add(breakfastCheck);
+        appFrame.add(lunchCheck);
+        appFrame.add(dinnerCheck);
+        appFrame.add(addItem);
+    }
+
+    //Uncheck everything else when one option has been chosen
+    @Override
+        public void itemStateChanged(ItemEvent e) {
+            // TODO Auto-generated method stub
+            if(e.getItem()==breakfastCheck){
+                if(breakfastCheck.isSelected()){
+                    lunchCheck.setSelected(false);
+                    lunchList.setEnabled(false);
+                    dinnerCheck.setSelected(false);
+                    dinnerList.setEnabled(false);
+                }
+            }
+            if(e.getItem()==lunchCheck){
+                if(lunchCheck.isSelected()){
+                    breakfastCheck.setSelected(false);
+                    breakfastList.setEnabled(false);
+                    dinnerCheck.setSelected(false);
+                    dinnerList.setEnabled(false);
+                }
+            }
+            if(e.getItem()==dinnerCheck){
+                if(dinnerCheck.isSelected()){
+                    breakfastCheck.setSelected(false);
+                    breakfastList.setEnabled(false);
+                    lunchCheck.setSelected(false);
+                    lunchList.setEnabled(false);
+                }
+            }
+            
+        }
+
+        //Adding item from the menu based the ticked lists
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        // TODO Auto-generated method stub
+        if(e.getSource()==addItem){
+            if(breakfastCheck.isSelected()){
+                breakfastList.setModel(DefaultBreakfastList);
+                breakfastItemsToHold.add((Item) menuList.getSelectedValue());
+                DefaultBreakfastList.addElement(breakfastItemsToHold.toString());
+
+            }else if (lunchCheck.isSelected()){
+                lunchItemsToHold.add((Item) menuList.getSelectedValue());
+                DefaultLunchList.addElement(lunchItemsToHold.toArray());
+                lunchList.setModel(DefaultLunchList);
+
+            }else if(dinnerCheck.isSelected()){
+                dinnerItemsToHold.add((Item) menuList.getSelectedValue());
+                DefaultDinnerList.addElement(dinnerItemsToHold.toArray());
+                dinnerList.setModel(DefaultDinnerList);
+
+            }else{
+                System.out.println(":)");
+            }
+        }
     }
 }
