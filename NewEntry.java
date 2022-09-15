@@ -6,17 +6,16 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-public class NewEntry implements ActionListener{
+public class NewEntry extends LooseWeight implements ActionListener{
 
     //Declare some variables
-    private JFrame appFrame;
-    private JLabel errorMessage;
-    private JButton retryButton;
-    public JTextField name;
-    public JTextField carbs;
-    public JTextField fats;
-    public JTextField protein;
-    public JTextField calories;
+    JFrame appFrame;
+    private JButton add;
+    public JTextField nameNE;
+    public JTextField carbsNE;
+    public JTextField fatsNE;
+    public JTextField proteinNE;
+    public JTextField caloriesNE;
     private JLabel nameLabel;
     private JLabel carbsLabel;
     private JLabel fatsLabel;
@@ -24,7 +23,11 @@ public class NewEntry implements ActionListener{
     private JLabel caloriesLabel;
 
     //Main Frame
-    NewEntry(){
+    NewEntry(String name, double carbsAmount, double fatAmount, double proteinAmount, int calories){
+
+        super(name, carbsAmount, fatAmount, proteinAmount, calories);
+
+
         appFrame = new JFrame();
         appFrame.setTitle("New Entry");
         appFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -36,11 +39,11 @@ public class NewEntry implements ActionListener{
         appFrame.setLayout(null);
 
         //Button
-        retryButton = new JButton();
-        retryButton.setText("OK");
-        retryButton.setBounds(100, 60, 80, 35);
-        retryButton.setFocusable(false);
-        retryButton.addActionListener(this);
+        add = new JButton();
+        add.setText("Add");
+        add.setBounds(100, 60, 80, 35);
+        add.setFocusable(false);
+        add.addActionListener(this);
 
         //Labels
         nameLabel = new JLabel();
@@ -64,41 +67,55 @@ public class NewEntry implements ActionListener{
         caloriesLabel.setBounds(200, 60, 60, 30);
 
         //TextFields
-        name = new JTextField();
-        name.setBounds(50, 18, 70, 15);
+        nameNE = new JTextField();
+        nameNE.setBounds(50, 18, 70, 15);
 
-        carbs = new JTextField();
-        carbs.setBounds(170, 18, 25, 15);
+        carbsNE = new JTextField();
+        carbsNE.setBounds(170, 18, 25, 15);
 
-        fats = new JTextField();
-        fats.setBounds(235, 18, 25, 15);
+        fatsNE = new JTextField();
+        fatsNE.setBounds(235, 18, 25, 15);
 
-        protein = new JTextField();
-        protein.setBounds(318, 18, 25, 15);
+        proteinNE = new JTextField();
+        proteinNE.setBounds(318, 18, 25, 15);
 
-        calories = new JTextField();
-        calories.setBounds(255, 68, 35, 15);
+        caloriesNE = new JTextField();
+        caloriesNE.setBounds(255, 68, 35, 15);
 
         //Add to frame
-        appFrame.add(retryButton);
+        appFrame.add(add);
         appFrame.add(nameLabel);
         appFrame.add(carbsLabel);
         appFrame.add(fatsLabel);
         appFrame.add(proteinLabel);
         appFrame.add(caloriesLabel);
-        appFrame.add(name);
-        appFrame.add(carbs);
-        appFrame.add(fats);
-        appFrame.add(protein);
-        appFrame.add(calories);
+        appFrame.add(nameNE);
+        appFrame.add(carbsNE);
+        appFrame.add(fatsNE);
+        appFrame.add(proteinNE);
+        appFrame.add(caloriesNE);
 
         
     }
 
-    //exit window
+    //Add New Item To LooseWeight Frame
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource()==retryButton){
+        if(e.getSource()==add){
+
+            String n = nameNE.getText().toString();
+            double c = Double.parseDouble(carbsNE.getText());
+            double f = Double.parseDouble(fatsNE.getText());
+            double p = Double.parseDouble(proteinNE.getText());
+            int cal = Integer.parseInt(caloriesNE.getText());
+
+            itemListDisplay.add(new Item(n, c, f, p, cal));
+
+            for (Item i : itemListDisplay) {
+                dummyModel.addElement(i);
+              }
+
+
             appFrame.dispose();
         }
         

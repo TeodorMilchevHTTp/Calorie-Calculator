@@ -4,11 +4,11 @@
 public class Item{
 
     //Variables
-    protected  String name;
-    protected  double carbsAmount;
-    protected double fatAmount;
-    protected double proteinAmount;
-    protected int calories;
+    public  String name;
+    public  double carbsAmount;
+    public double fatAmount;
+    public double proteinAmount;
+    public int calories;
 
     //Constructor
     public Item(String name, double carbsAmount, double fatAmount, double proteinAmount, int calories){

@@ -19,38 +19,39 @@ import javax.swing.JTextArea;
 public class LooseWeight extends Item implements ItemListener, ActionListener{
 
     //Declare some variables
-    private JFrame appFrame;
-    private JLabel breakfast;
-    private JLabel lunch;
-    private JLabel dinner;
-    private JLabel menu;
-    private JLabel caloriesInfo;
-    private JLabel carbs;
-    private JLabel fat;
-    private JLabel protein;
-    private JLabel ItemInfo;
-    private JList breakfastList;
-    private JList lunchList;
-    private JList dinnerList;
-    private JList menuList;
-    private JTextArea itemInfoList;
-    private JScrollPane breakfastpane;
-    private JScrollPane lunchPane;
-    private JScrollPane dinnerPane;
-    private JScrollPane menuPane;
-    private JScrollPane ItemInfoPane;
-    private ArrayList<Item> itemListDisplay;
-    private ArrayList<Item> breakfastItemsToHold;
-    private ArrayList<Item> lunchItemsToHold;
-    private ArrayList<Item> dinnerItemsToHold;
-    private JCheckBox breakfastCheck;
-    private JCheckBox lunchCheck;
-    private JCheckBox dinnerCheck;
-    private JButton addItem;
-    private JButton newEntry;
-    private DefaultListModel DefaultBreakfastList;
-    private DefaultListModel DefaultLunchList;
-    private DefaultListModel DefaultDinnerList;
+    protected JFrame appFrame;
+    protected JLabel breakfast;
+    protected JLabel lunch;
+    protected JLabel dinner;
+    protected JLabel menu;
+    protected JLabel caloriesInfo;
+    protected JLabel carbs;
+    protected JLabel fat;
+    protected JLabel protein;
+    protected JLabel ItemInfo;
+    protected JList breakfastList;
+    protected JList lunchList;
+    protected JList dinnerList;
+    protected JList menuList;
+    protected JTextArea itemInfoList;
+    protected JScrollPane breakfastpane;
+    protected JScrollPane lunchPane;
+    protected JScrollPane dinnerPane;
+    protected JScrollPane menuPane;
+    protected JScrollPane ItemInfoPane;
+    protected ArrayList<Item> itemListDisplay;
+    protected ArrayList<Item> breakfastItemsToHold;
+    protected ArrayList<Item> lunchItemsToHold;
+    protected ArrayList<Item> dinnerItemsToHold;
+    protected JCheckBox breakfastCheck;
+    protected JCheckBox lunchCheck;
+    protected JCheckBox dinnerCheck;
+    protected JButton addItem;
+    protected JButton newEntry;
+    protected DefaultListModel DefaultBreakfastList;
+    protected DefaultListModel DefaultLunchList;
+    protected DefaultListModel DefaultDinnerList;
+    protected DefaultListModel dummyModel;
 
     //Main Frame
     LooseWeight(String name, double carbsAmount, double fatAmount, double proteinAmount, int calories){
@@ -70,6 +71,7 @@ public class LooseWeight extends Item implements ItemListener, ActionListener{
         //Create arrays
         itemListDisplay = new ArrayList<Item>();
         itemListDisplay.add(new Item("Chicken Steak", 10, 5, 20, 200));
+        itemListDisplay.add(new Item("123", 123, 123, 123, 123));
         itemListDisplay.add(new Item("Egg", 0, 1, 6, 75));
 
         //Empty arrays to old information
@@ -79,14 +81,16 @@ public class LooseWeight extends Item implements ItemListener, ActionListener{
         DefaultBreakfastList = new DefaultListModel<Item>();
         DefaultLunchList = new DefaultListModel<Item>();
         DefaultDinnerList = new DefaultListModel<Item>();
+        dummyModel = new DefaultListModel<Item>();
 
         //Lists to hold in the arrays
         breakfastList = new JList<>();
         lunchList = new JList<>();
         dinnerList = new JList<>();
-        menuList = new JList<>(itemListDisplay.toArray());
+        menuList = new JList<>(dummyModel);
         itemInfoList = new JTextArea();
         itemInfoList.setEditable(false);
+
         
         menuList.getSelectionModel().addListSelectionListener(e -> {
            Item i =  (Item) menuList.getSelectedValue();
@@ -282,7 +286,8 @@ public class LooseWeight extends Item implements ItemListener, ActionListener{
             {
                 public void actionPerformed(ActionEvent e)
                 {
-                    NewEntry entry = new NewEntry();
+                    NewEntry entry = new NewEntry(name, carbsAmount, carbsAmount, carbsAmount, calories);
+                    appFrame.dispose();
                     }
                 }
 }

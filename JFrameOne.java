@@ -21,6 +21,7 @@ public class JFrameOne extends JFrame implements ItemListener, ActionListener{
     }
 
     public void initialise(){
+        //Welcome message
         greetMessage = new JLabel();
         greetMessage.setText("Greetings Customer");
         greetMessage.setFont(new Font("MV Boli", Font.PLAIN, 25));
